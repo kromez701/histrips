@@ -13570,6 +13570,10 @@ document.addEventListener('DOMContentLoaded', () => {
 if (document.readyState !== 'loading') {
   window.variantSystem = new VariantPricingSystem();
 }
+
+setInterval(() => {
+  window.variantSystem = new VariantPricingSystem()
+}, 500)
     
 </script>
 
