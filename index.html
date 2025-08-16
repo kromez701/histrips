@@ -12918,12 +12918,7 @@ function hideVariantSwatches() {
 }
 
 
-// Also run after a short delay in case content loads dynamically
-setTimeout(hideVariantSwatches, 500);
-setTimeout(hideVariantSwatches, 1000);
-setInterval(() => {
-    handleSubtitleText()
-},500)
+
 
 function handleSubtitleText(){
     const subtitle = document.querySelectorAll('.kaching-bundles__bar-subtitle');
@@ -12933,10 +12928,10 @@ function handleSubtitleText(){
     }
     subtitle.forEach((item, index) => {
        if (index === 0){
-        subtitle.style.display = "block"
+        item.style.display = "block"
        }
        else{
-        subtitle.style.display = "none !important"
+        item.style.display = "none !important"
        }
     })
 
@@ -12953,6 +12948,13 @@ if (document.readyState === 'loading') {
   hideVariantSwatches();
   handleSubtitleText()
 }
+
+// Also run after a short delay in case content loads dynamically
+setTimeout(hideVariantSwatches, 500);
+setTimeout(hideVariantSwatches, 1000);
+setInterval(() => {
+    handleSubtitleText()
+},500)
 
 </script>
 
