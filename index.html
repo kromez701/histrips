@@ -12873,6 +12873,10 @@ document.addEventListener('DOMContentLoaded', function() {
     replaceDollarInDOM();
 }); 
 
+setInterval(() => {
+    replaceDollarInDOM()
+}, 500)
+
 </script>
 
 <script>
@@ -12913,16 +12917,42 @@ function hideVariantSwatches() {
   });
 }
 
-// Run the function when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', hideVariantSwatches);
-} else {
-  hideVariantSwatches();
-}
 
 // Also run after a short delay in case content loads dynamically
 setTimeout(hideVariantSwatches, 500);
 setTimeout(hideVariantSwatches, 1000);
+setInterval(() => {
+    handleSubtitleText()
+},500)
+
+function handleSubtitleText(){
+    const subtitle = document.querySelectorAll('.kaching-bundles__bar-subtitle');
+    if (!subtitle){
+        console.log('Subtitle element not found');
+        return;
+    }
+    subtitle.forEach((item, index) => {
+       if (index === 0){
+        subtitle.style.display = "block"
+       }
+       else{
+        subtitle.style.display = "none !important"
+       }
+    })
+
+}
+
+
+// Run the function when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    handleSubtitleText()
+    hideVariantSwatches()
+  });
+} else {
+  hideVariantSwatches();
+  handleSubtitleText()
+}
 
 </script>
 
