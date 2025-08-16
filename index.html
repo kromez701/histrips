@@ -12889,6 +12889,8 @@ function hideVariantSwatches() {
   
   // Get all variant items
   const swatchItems = swatchContainer.querySelectorAll('.gsw-prg-item');
+
+  console.log("swatchItems:", swatchItems);
   
   if (swatchItems.length === 0) {
     console.log('No swatch items found');
@@ -12905,7 +12907,7 @@ function hideVariantSwatches() {
       console.log('Kept first swatch visible:', item.querySelector('.attr-title-hover-groups')?.textContent);
     } else {
       // Hide all other items
-      item.style.display = 'none';
+      item.style.display = 'none !important';
       console.log('Hidden swatch:', item.querySelector('.attr-title-hover-groups')?.textContent);
     }
   });
