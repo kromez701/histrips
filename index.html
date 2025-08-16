@@ -1065,7 +1065,7 @@ window.TriplePixelData={TripleName:"9383f5-c6.myshopify.com",ver:"2.16",plat:"SH
 >
           <div data-ticker-frame class="announcement__message">
             <div data-ticker-scale class="announcement__scale ticker--unloaded"><div data-ticker-text class="announcement__text">
-                  <div class="body-size-2"><p>FREE SHIPPING ON ALL ORDERS ABOVE €60 <span class="announcement__divider"></span> $65</p>
+                  <div class="body-size-2"><p>FREE SHIPPING ON ALL ORDERS ABOVE £60 <span class="announcement__divider"></span> $65</p>
 </div>
                 </div></div>
           </div>
@@ -12872,6 +12872,55 @@ var metafield='';
 document.addEventListener('DOMContentLoaded', function() {
     replaceDollarInDOM();
 }); 
+
+</script>
+
+<script>
+
+    // Hide all variant swatches except the first one
+function hideVariantSwatches() {
+  // Find the container with all variant swatches
+  const swatchContainer = document.querySelector('.gsw-list-products-group');
+  
+  if (!swatchContainer) {
+    console.log('Swatch container not found');
+    return;
+  }
+  
+  // Get all variant items
+  const swatchItems = swatchContainer.querySelectorAll('.gsw-prg-item');
+  
+  if (swatchItems.length === 0) {
+    console.log('No swatch items found');
+    return;
+  }
+  
+  console.log(`Found ${swatchItems.length} swatch items`);
+  
+  // Hide all items except the first one
+  swatchItems.forEach((item, index) => {
+    if (index === 0) {
+      // Keep the first item visible
+      item.style.display = 'block';
+      console.log('Kept first swatch visible:', item.querySelector('.attr-title-hover-groups')?.textContent);
+    } else {
+      // Hide all other items
+      item.style.display = 'none';
+      console.log('Hidden swatch:', item.querySelector('.attr-title-hover-groups')?.textContent);
+    }
+  });
+}
+
+// Run the function when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', hideVariantSwatches);
+} else {
+  hideVariantSwatches();
+}
+
+// Also run after a short delay in case content loads dynamically
+setTimeout(hideVariantSwatches, 500);
+setTimeout(hideVariantSwatches, 1000);
 
 </script>
 
