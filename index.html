@@ -12947,8 +12947,316 @@ function handleSubtitleText(){
 
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    handleSubtitleText()
+})
+
+setInterval(() => {
+    handleSubtitleText()
+}, 500)
+
 
 </script>
+
+// <script>
+
+//     // Configuration object for pricing and URLs
+// const variantConfig = {
+//   'one-time': {
+//     variants: {
+//       '1-month': {
+//         price: '£29.95',
+//         originalPrice: '£59.95',
+//         discount: '50%',
+//         url: '/checkout/onetime-1month',
+//         quantity: 1
+//       },
+//       '2-month': {
+//         price: '£39.95',
+//         originalPrice: '£79.90',
+//         discount: '50%',
+//         url: '/checkout/onetime-2month',
+//         quantity: 2
+//       },
+//       '3-month': {
+//         price: '£49.99',
+//         originalPrice: '£119.85',
+//         discount: '58%',
+//         url: '/checkout/onetime-3month',
+//         quantity: 3
+//       }
+//     }
+//   },
+//   'subscribe': {
+//     variants: {
+//       '1-month': {
+//         price: '£19.99',
+//         originalPrice: '£59.95',
+//         discount: '67%',
+//         url: '/checkout/subscribe-1month',
+//         quantity: 1
+//       },
+//       '2-month': {
+//         price: '£22.99',
+//         originalPrice: '£79.90',
+//         discount: '71%',
+//         url: '/checkout/subscribe-2month',
+//         quantity: 2
+//       },
+//       '3-month': {
+//         price: '£29.99',
+//         originalPrice: '£119.85',
+//         discount: '75%',
+//         url: '/checkout/subscribe-3month',
+//         quantity: 3
+//       }
+//     }
+//   }
+// };
+
+// class VariantPricingSystem {
+//   constructor() {
+//     this.currentPurchaseType = 'one-time';
+//     this.currentVariant = '3-month'; // Default to 3-month (most popular)
+//     this.variantMapping = {}; // Will map existing IDs to our variant keys
+//     this.init();
+//   }
+
+//   init() {
+//     this.mapExistingVariants();
+//     this.bindEvents();
+//     this.updateMainProductPrice();
+//   }
+
+//   mapExistingVariants() {
+//     // Map existing variant bars to our system based on the order they appear
+//     const variantBars = document.querySelectorAll('.kaching-bundles__bar[data-deal-bar-id]');
+//     const variantKeys = ['1-month', '2-month', '3-month'];
+    
+//     variantBars.forEach((bar, index) => {
+//       const existingId = bar.dataset.dealBarId;
+//       const variantKey = variantKeys[index] || '1-month';
+//       this.variantMapping[existingId] = variantKey;
+//     });
+
+//     // Set default selection based on which bar is already selected
+//     const selectedBar = document.querySelector('.kaching-bundles__bar--selected[data-deal-bar-id]');
+//     if (selectedBar) {
+//       const existingId = selectedBar.dataset.dealBarId;
+//       this.currentVariant = this.variantMapping[existingId] || '3-month';
+//     }
+
+//     // Determine current purchase type based on selected subscription option
+//     const selectedSubscription = document.querySelector('.kaching-bundles__subscriptions .kaching-bundles__bar--selected');
+//     if (selectedSubscription) {
+//       const subscriptionTitle = selectedSubscription.querySelector('.kaching-bundles__subscriptions__title');
+//       if (subscriptionTitle && subscriptionTitle.textContent.includes('Subscribe')) {
+//         this.currentPurchaseType = 'subscribe';
+//       }
+//     }
+//   }
+
+//   bindEvents() {
+//     // Handle subscription type selection
+//     document.addEventListener('click', (e) => {
+//       const subscriptionBar = e.target.closest('.kaching-bundles__subscriptions .kaching-bundles__bar');
+//       if (subscriptionBar) {
+//         // Update subscription selection visually
+//         document.querySelectorAll('.kaching-bundles__subscriptions .kaching-bundles__bar').forEach(bar => {
+//           bar.classList.remove('kaching-bundles__bar--selected');
+//         });
+//         subscriptionBar.classList.add('kaching-bundles__bar--selected');
+        
+//         // Determine purchase type based on the title
+//         const titleElement = subscriptionBar.querySelector('.kaching-bundles__subscriptions__title');
+//         if (titleElement && titleElement.textContent.includes('Subscribe')) {
+//           this.currentPurchaseType = 'subscribe';
+//         } else {
+//           this.currentPurchaseType = 'one-time';
+//         }
+        
+//         this.updateVariantPricesInExistingBars();
+//         this.updateMainProductPrice();
+//         this.updateAddToCartButton();
+//       }
+
+//       // Handle variant selection
+//       const variantBar = e.target.closest('.kaching-bundles__bar[data-deal-bar-id]');
+//       if (variantBar && !variantBar.closest('.kaching-bundles__subscriptions')) {
+//         const existingId = variantBar.dataset.dealBarId;
+//         const variantKey = this.variantMapping[existingId];
+//         if (variantKey) {
+//           this.selectVariant(existingId, variantKey);
+//         }
+//       }
+
+//       // Handle add to cart button
+//       const addToCartBtn = e.target.closest('[data-add-to-cart]');
+//       if (addToCartBtn) {
+//         e.preventDefault();
+//         this.handleAddToCart();
+//       }
+//     });
+
+//     // Handle radio button changes
+//     document.addEventListener('change', (e) => {
+//       if (e.target.type === 'radio' && e.target.name.includes('kaching-bundles-deal')) {
+//         const existingId = e.target.value;
+//         const variantKey = this.variantMapping[existingId];
+//         if (variantKey) {
+//           this.selectVariant(existingId, variantKey);
+//         }
+//       }
+//     });
+//   }
+
+//   selectVariant(existingId, variantKey) {
+//     this.currentVariant = variantKey;
+    
+//     // Update visual selection
+//     document.querySelectorAll('.kaching-bundles__bar[data-deal-bar-id]').forEach(bar => {
+//       bar.classList.remove('kaching-bundles__bar--selected');
+//     });
+    
+//     const selectedBar = document.querySelector(`[data-deal-bar-id="${existingId}"]`);
+//     if (selectedBar) {
+//       selectedBar.classList.add('kaching-bundles__bar--selected');
+//     }
+
+//     // Update radio button
+//     const radio = document.querySelector(`input[value="${existingId}"]`);
+//     if (radio) {
+//       radio.checked = true;
+//     }
+
+//     this.updateMainProductPrice();
+//   }
+
+//   updateVariantPricesInExistingBars() {
+//     // Update prices in existing variant bars
+//     Object.entries(this.variantMapping).forEach(([existingId, variantKey]) => {
+//       const bar = document.querySelector(`[data-deal-bar-id="${existingId}"]`);
+//       const config = variantConfig[this.currentPurchaseType]?.variants[variantKey];
+      
+//       if (bar && config) {
+//         // Update the price in the variant bar
+//         const priceElement = bar.querySelector('.kaching-bundles__bar-price');
+//         if (priceElement) {
+//           priceElement.textContent = config.price;
+//         }
+        
+//         // Update the original price
+//         const fullPriceElement = bar.querySelector('.kaching-bundles__bar-full-price');
+//         if (fullPriceElement) {
+//           fullPriceElement.textContent = config.originalPrice;
+//         }
+        
+//         // Update discount label
+//         const labelElement = bar.querySelector('.kaching-bundles__bar-label');
+//         if (labelElement) {
+//           labelElement.textContent = `-${config.discount}`;
+//         }
+//       }
+//     });
+//   }
+
+//   updateMainProductPrice() {
+//     const config = variantConfig[this.currentPurchaseType]?.variants[this.currentVariant];
+    
+//     if (!config) return;
+
+//     // Update main product price (product__price--sale)
+//     const mainPriceElement = document.querySelector('[data-product-price]');
+//     if (mainPriceElement) {
+//       mainPriceElement.textContent = config.price;
+//     }
+    
+//     // Update compare price
+//     const comparePriceElement = document.querySelector('[data-compare-price]');
+//     if (comparePriceElement) {
+//       comparePriceElement.textContent = config.originalPrice;
+//     }
+    
+//     // Update discount percentage
+//     const priceOffElement = document.querySelector('[data-price-off-amount]');
+//     if (priceOffElement) {
+//       priceOffElement.textContent = `${config.discount}`;
+//     }
+
+//     // Update quantity
+//     const quantityInput = document.querySelector('input[name="quantity"]');
+//     if (quantityInput) {
+//       quantityInput.value = config.quantity;
+//     }
+
+//     // Update variant bars if needed
+//     this.updateVariantPricesInExistingBars();
+//   }
+
+//   updateAddToCartButton() {
+//     // Update add to cart button text based on subscription type
+//     const addToCartText = document.querySelector('[data-add-to-cart-text]');
+//     if (addToCartText) {
+//       if (this.currentPurchaseType === 'subscribe') {
+//         addToCartText.textContent = 'Subscribe Now';
+//       } else {
+//         addToCartText.textContent = 'Add to cart';
+//       }
+//     }
+//   }
+
+//   handleAddToCart() {
+//     const config = variantConfig[this.currentPurchaseType]?.variants[this.currentVariant];
+    
+//     if (!config) {
+//       console.error('No variant configuration found');
+//       return;
+//     }
+
+//     // Show loading state
+//     const addToCartBtn = document.querySelector('[data-add-to-cart]');
+//     if (addToCartBtn) {
+//       addToCartBtn.classList.add('btn--loading');
+//     }
+
+//     // Log the selection for debugging
+//     console.log('Redirecting to:', config.url);
+//     console.log('Purchase type:', this.currentPurchaseType);
+//     console.log('Variant:', this.currentVariant);
+//     console.log('Price:', config.price);
+//     console.log('Quantity:', config.quantity);
+
+//     // Simulate a brief loading period then redirect
+//     setTimeout(() => {
+//       window.location.href = config.url;
+//     }, 500);
+//   }
+
+//   // Public method to get current selection
+//   getCurrentSelection() {
+//     const config = variantConfig[this.currentPurchaseType]?.variants[this.currentVariant];
+    
+//     return {
+//       purchaseType: this.currentPurchaseType,
+//       variant: this.currentVariant,
+//       price: config?.price,
+//       url: config?.url,
+//       quantity: config?.quantity
+//     };
+//   }
+// }
+
+// // Initialize the system when DOM is ready
+// document.addEventListener('DOMContentLoaded', () => {
+//   window.variantSystem = new VariantPricingSystem();
+// });
+
+// // Also initialize immediately if DOM is already loaded
+// if (document.readyState !== 'loading') {
+//   window.variantSystem = new VariantPricingSystem();
+// }
+    
+// </script>
 
 <script>
 
@@ -13086,9 +13394,24 @@ class VariantPricingSystem {
       const addToCartBtn = e.target.closest('[data-add-to-cart]');
       if (addToCartBtn) {
         e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
         this.handleAddToCart();
+        return false;
       }
-    });
+    }, true); // Use capture phase to intercept before other handlers
+
+    // Also bind to form submit to catch any form submissions
+    document.addEventListener('submit', (e) => {
+      const form = e.target.closest('form');
+      if (form && form.querySelector('[data-add-to-cart]')) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        this.handleAddToCart();
+        return false;
+      }
+    }, true);
 
     // Handle radio button changes
     document.addEventListener('change', (e) => {
