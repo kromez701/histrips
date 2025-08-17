@@ -13932,8 +13932,9 @@ if (document.readyState !== 'loading') {
 
 <script>
 
-  function hideSubscriptionDivByContent() {
-    // Find all kaching-bundles__bar divs
+  
+    document.addEventListener("DOMContentLoaded", () => {
+       // Find all kaching-bundles__bar divs
     const bundleBars = document.querySelectorAll('.kaching-bundles__bar');
     console.log("bundle bars", bundleBars)
     
@@ -13944,8 +13945,8 @@ if (document.readyState !== 'loading') {
             console.log('Subscribe & Save div hidden');
         }
     });
-}
-hideSubscriptionDivByContent()
+    })
+
 
 
 </script>
