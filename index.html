@@ -13930,4 +13930,56 @@ if (document.readyState !== 'loading') {
 
 </script>
 
+<script>
+
+  function hideSubscriptionDivByContent() {
+    // Find all kaching-bundles__bar divs
+    const bundleBars = document.querySelectorAll('.kaching-bundles__bar');
+    
+    bundleBars.forEach(div => {
+        // Check if this div contains "Subscribe & Save" text
+        if (div.textContent.includes('Subscribe & Save 30%')) {
+            div.style.display = 'none';
+            console.log('Subscribe & Save div hidden');
+        }
+    });
+}
+hideSubscriptionDivByContent()
+
+function hideSecondDivWithObserver() {
+    function hideTargetDiv() {
+        const divToHide = document.querySelector('.kaching-bundles__bar:not(.kaching-bundles__bar--selected)');
+        if (divToHide && divToHide.style.display !== 'none') {
+            divToHide.style.display = 'none';
+            console.log('Div hidden by observer');
+        }
+    }
+    
+    // Try immediately
+    hideTargetDiv();
+    
+    // Set up observer for dynamic content
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                hideTargetDiv();
+            }
+        });
+    });
+    
+    // Start observing
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+    
+    // Optional: Stop observing after 10 seconds
+    setTimeout(() => {
+        observer.disconnect();
+        console.log('Observer disconnected');
+    }, 10000);
+}
+hideSecondDivWithObserver()
+</script>
+
 </html>
