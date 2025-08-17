@@ -13935,6 +13935,7 @@ if (document.readyState !== 'loading') {
   function hideSubscriptionDivByContent() {
     // Find all kaching-bundles__bar divs
     const bundleBars = document.querySelectorAll('.kaching-bundles__bar');
+    console.log("bundle bars", bundleBars)
     
     bundleBars.forEach(div => {
         // Check if this div contains "Subscribe & Save" text
